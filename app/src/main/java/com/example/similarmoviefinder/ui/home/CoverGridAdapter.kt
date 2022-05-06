@@ -21,8 +21,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.Moviephotos.databinding.GridViewItemBinding
-import com.example.android.Moviephotos.network.MoviePhoto
 import com.example.similarmoviefinder.databinding.GridViewItemBinding
 import com.example.similarmoviefinder.network.Movie
 
