@@ -22,15 +22,19 @@
     <data>
         <variable
             name="movie"
-            type="com.example.android.similarmoviefinder.network.Movie" />
+            type="com.example.similarmoviefinder.network.Movie" />
     </data>
-    <ImageView
-        android:id="@+id/mars_image"
-        android:layout_width="wrap_content"
-        android:layout_height="170dp"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        app:imageUrl="@{movie.poster_path}"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="{movie.poster_path}"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/mars_image"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="170dp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:padding="2dp"-->
+<!--        app:imageUrl="@{movie.poster_path}"-->
+<!--        tools:src="@tools:sample/backgrounds/scenic"/>-->
 </layout>

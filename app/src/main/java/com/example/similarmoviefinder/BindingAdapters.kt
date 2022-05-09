@@ -18,12 +18,13 @@ package com.example.similarmoviefinder
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.Moviephotos.overview.CoverGridAdapter
+import coil.load
+import com.example.Moviephotos.overview.CoverGridAdapter
 import com.example.similarmoviefinder.network.Movie
-import com.example.similarmoviefinder.ui.home.MovieApiStatus
 
 /**
  * Updates the data shown in the [RecyclerView].
@@ -47,26 +48,25 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         }
     }
 }
-
-/**
- * This binding adapter displays the [MovieApiStatus] of the network request in an image view.  When
- * the request is loading, it displays a loading_animation.  If the request has an error, it
- * displays a broken image to reflect the connection error.  When the request is finished, it
- * hides the image view.
- */
-@BindingAdapter("MovieApiStatus")
-fun bindStatus(statusImageView: ImageView, status: MovieApiStatus?) {
-    when (status) {
-        MovieApiStatus.LOADING -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
-        }
-        MovieApiStatus.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
-        }
-        MovieApiStatus.DONE -> {
-            statusImageView.visibility = View.GONE
-        }
-    }
-}
+///**
+// * This binding adapter displays the [MovieApiStatus] of the network request in an image view.  When
+// * the request is loading, it displays a loading_animation.  If the request has an error, it
+// * displays a broken image to reflect the connection error.  When the request is finished, it
+// * hides the image view.
+// */
+//@BindingAdapter("MovieApiStatus")
+//fun bindStatus(statusImageView: ImageView, status: MovieApiStatus?) {
+//    when (status) {
+//        MovieApiStatus.LOADING -> {
+//            statusImageView.visibility = View.VISIBLE
+//            statusImageView.setImageResource(R.drawable.loading_animation)
+//        }
+//        MovieApiStatus.ERROR -> {
+//            statusImageView.visibility = View.VISIBLE
+//            statusImageView.setImageResource(R.drawable.ic_connection_error)
+//        }
+//        MovieApiStatus.DONE -> {
+//            statusImageView.visibility = View.GONE
+//        }
+//    }
+//}

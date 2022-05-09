@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.Moviephotos.overview
+package com.example.Moviephotos.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,7 +39,7 @@ class CoverGridAdapter :
         private var binding: GridViewItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            binding.movie = Movie
+            binding.movie = movie
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()

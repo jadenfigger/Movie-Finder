@@ -1,10 +1,8 @@
 package com.example.similarmoviefinder.ui.home
 
 import android.util.Log.d
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.similarmoviefinder.network.Movie
 import com.example.similarmoviefinder.network.MovieApi
 import kotlinx.coroutines.launch
 
@@ -20,6 +18,9 @@ class HomeViewModel : ViewModel() {
 
     // The external immutable LiveData for the request status
     val status: LiveData<String> = _status
+
+    private val _listResult = MutableLiveData<List<Movie>>()
+    val listResult: LiveData<List<Movie>> = _listResult
     /**
      * Call getMarsPhotos() on init so we can display status immediately.
      */
@@ -28,12 +29,12 @@ class HomeViewModel : ViewModel() {
      * Gets Mars photos information from the Mars API Retrofit service and updates the
      * [MarsPhoto] [List] [LiveData].
      */
-    private fun getMarsPhotos() {
+    fun getMarsPhotos() {
         viewModelScope.launch {
             try {
-                val listResult = MovieApi.retrofitService.getMovies(api_key, "batman", 1)
-                _status.value = "Success: ${listResult.size} Mars photos retrieved"
-                d("status", "Success: ${listResult.size} Mars photos retrieved")
+                _listResult.value = MovieApi.retrofitService.getMovies(api_key, "batman", 1)
+                _status.value = "Success: ${listResult.value?.size} Mars photos retrieved"
+                d("status", "Success: ${listResult.value?.size} Mars photos retrieved")
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
                 d("status", "Failure: ${e.message}")

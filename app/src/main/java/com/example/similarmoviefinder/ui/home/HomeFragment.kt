@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.Moviephotos.overview.CoverGridAdapter
 import com.example.similarmoviefinder.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -24,13 +25,15 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Giving the binding access to the OverviewViewModel
-        binding.viewModel = viewModel
+        binding.viewModel = viewBinding
+
 
         // Sets the adapter of the photosGrid RecyclerView
-        binding.photosGrid.adapter = PhotoGridAdapter()
+        binding.moviesList.adapter = CoverGridAdapter()
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                viewBinding.getMarsPhotos()
                 return true
             }
 
