@@ -15,12 +15,14 @@
  */
 
 package com.example.similarmoviefinder.network
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 
@@ -50,8 +52,12 @@ interface MovieApiService {
      * The @GET annotation indicates that the "photos" endpoint will be requested with the GET
      * HTTP method
      */
-    @GET("search/movie?api_key={api_key}&language=en-US&query={query}&page={page}&include_adult=true")
-    suspend fun getMovies(@Path("api_key") api_key: String, @Path("query") query: String, @Path("page") page: Int): List<Movie>
+    @GET("search/movie")
+    fun getMovies(
+        @Query("api_key") api_key: String?,
+        @Query("query") query: String?,
+        @Query("page") page: Int?,
+    ): Call<MoviePage>
 }
 
 /**
