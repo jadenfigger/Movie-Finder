@@ -20,18 +20,20 @@ import android.R
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.similarmoviefinder.databinding.GridViewItemBinding
 import com.example.similarmoviefinder.network.Movie
+import com.example.similarmoviefinder.ui.home.HomeFragment
 import com.squareup.picasso.Picasso
 
 
 class MovieAdapter(
-private val moviesList: List<Movie>
+    private val moviesList: List<Movie>
 ) : RecyclerView.Adapter<MovieViewHolder>() {
 
 private lateinit var binding: GridViewItemBinding
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         binding = GridViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
@@ -39,15 +41,20 @@ private lateinit var binding: GridViewItemBinding
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = moviesList[position]
-        Log.i("status", movie.poster_path)
+        Log.i("status", movie.title+" "+movie.poster_path)
         val imageUri = "https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"
         Picasso.get().load(imageUri).into(binding.posterImg)
-        Log.i("status", imageUri)
+
+        holder.itemView.setOnClickListener {
+            navigateToWithinMovie
+        }
+
         holder.bind(movie)
     }
 
     override fun getItemCount(): Int {
         return moviesList.size
     }
+
 }
 

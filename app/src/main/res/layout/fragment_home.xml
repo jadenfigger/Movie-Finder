@@ -35,14 +35,28 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="25dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
             app:spanCount="2"
-            android:scaleType="fitXY"
             tools:listitem="@layout/grid_view_item" />
+
+        <TextView
+            android:id="@+id/noMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="152dp"
+            android:text="@string/no_movies"
+            android:textSize="25sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/movies_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

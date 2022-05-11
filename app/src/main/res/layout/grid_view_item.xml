@@ -29,7 +29,9 @@
     <ImageView
         android:id="@+id/poster_img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cropToPadding="true"
+        android:layout_height="300dp"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
         tools:src="@tools:sample/backgrounds/scenic" />
 </layout>

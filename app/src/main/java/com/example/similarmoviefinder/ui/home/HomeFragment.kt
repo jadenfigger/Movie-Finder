@@ -1,18 +1,21 @@
 package com.example.similarmoviefinder.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.example.similarmoviefinder.R
 import com.example.similarmoviefinder.databinding.FragmentHomeBinding
+import com.example.similarmoviefinder.network.Movie
 import com.example.similarmoviefinder.ui.home.adapter.MovieAdapter
 
 class HomeFragment : Fragment() {
@@ -20,6 +23,13 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
     }
+
+    private lateinit var movieAdapter: MovieAdapter
+
+    fun navigateToWithinMovie(movie: Movie) {
+        this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(movie))
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +37,7 @@ class HomeFragment : Fragment() {
     ): View {
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_home, container, false)
-//        val binding = FragmentHomeBinding.inflate(inflater)
+
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
@@ -36,27 +46,41 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-//        binding.moviesList.adapter = MovieAdapter()
-//        binding.viewModel.listResult.observe(viewLifecycleOwner, Observer {
-//            binding.moviesList.adapter =
-//        })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            if (it == MovieApiStatus.None) {
+                binding.noMovies.visibility = View.VISIBLE
+            } else {
+                binding.noMovies.visibility = View.INVISIBLE
+            }
+        })
 
         viewModel.listResult.observe(viewLifecycleOwner, Observer {
-            binding.moviesList.adapter = MovieAdapter(it.results)
+            movieAdapter = MovieAdapter(it.results)
+            binding.moviesList.adapter = movieAdapter
         })
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.i("status", "submit")
+                if (query != null && query != "") {
+                    viewModel.getMarsPhotos(query)
+                    val emptyList: List<Movie> = emptyList()
+                    binding.moviesList.adapter = MovieAdapter(emptyList)
+                    Log.i("status", query)
+                }
+                binding.searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                Log.i("status", "change")
                 return true
             }
 
         })
         return binding.root
     }
+
+
+
 }
