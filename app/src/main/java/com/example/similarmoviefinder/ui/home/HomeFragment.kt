@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.similarmoviefinder.R
@@ -35,7 +36,14 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        binding.viewModel.listResult.observe()
+//        binding.moviesList.adapter = MovieAdapter()
+//        binding.viewModel.listResult.observe(viewLifecycleOwner, Observer {
+//            binding.moviesList.adapter =
+//        })
+
+        viewModel.listResult.observe(viewLifecycleOwner, Observer {
+            binding.moviesList.adapter = MovieAdapter(it.results)
+        })
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

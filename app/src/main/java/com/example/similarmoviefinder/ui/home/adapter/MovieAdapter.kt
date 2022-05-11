@@ -16,11 +16,15 @@
 
 package com.example.similarmoviefinder.ui.home.adapter
 
+import android.R
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.similarmoviefinder.databinding.GridViewItemBinding
 import com.example.similarmoviefinder.network.Movie
+import com.squareup.picasso.Picasso
+
 
 class MovieAdapter(
 private val moviesList: List<Movie>
@@ -28,17 +32,22 @@ private val moviesList: List<Movie>
 
 private lateinit var binding: GridViewItemBinding
 
-override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-binding = GridViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-return MovieViewHolder(binding)
-}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        binding = GridViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
+    }
 
-override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-    val movie = moviesList[position]
-    holder.bind(movie)
-}
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        val movie = moviesList[position]
+        Log.i("status", movie.poster_path)
+        val imageUri = "https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"
+        Picasso.get().load(imageUri).into(binding.posterImg)
+        Log.i("status", imageUri)
+        holder.bind(movie)
+    }
 
-override fun getItemCount(): Int = moviesList.size
-
+    override fun getItemCount(): Int {
+        return moviesList.size
+    }
 }
 

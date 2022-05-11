@@ -25,17 +25,11 @@
             name="movie"
             type="com.example.similarmoviefinder.network.Movie" />
     </data>
-    <TextView
+
+    <ImageView
+        android:id="@+id/poster_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="{movie.poster_path}"/>
-<!--    <ImageView-->
-<!--        android:id="@+id/mars_image"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="170dp"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        android:padding="2dp"-->
-<!--        app:imageUrl="@{movie.poster_path}"-->
-<!--        tools:src="@tools:sample/backgrounds/scenic"/>-->
+        android:cropToPadding="true"
+        tools:src="@tools:sample/backgrounds/scenic" />
 </layout>
