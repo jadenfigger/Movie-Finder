@@ -1,3 +1,7 @@
+// Jaden Figger
+// Movie Searching
+// 5/12/2022
+
 package com.example.similarmoviefinder
 
 import android.os.Bundle

@@ -16,17 +16,20 @@
 
 package com.example.similarmoviefinder.ui.home.adapter
 
-import android.R
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.similarmoviefinder.databinding.GridViewItemBinding
 import com.example.similarmoviefinder.network.Movie
-import com.example.similarmoviefinder.ui.home.HomeFragment
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.squareup.picasso.Picasso
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
+import java.net.URLConnection
 
 
 class MovieAdapter(
@@ -41,13 +44,11 @@ private lateinit var binding: GridViewItemBinding
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = moviesList[position]
-        Log.i("status", movie.title+" "+movie.poster_path)
-        val imageUri = "https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"
-        Picasso.get().load(imageUri).into(binding.posterImg)
+//        Log.i("status", movie.title+" "+movie.poster_path)
+//        val imageUri = "https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}"
 
-        holder.itemView.setOnClickListener {
-            navigateToWithinMovie
-        }
+        // Setting the text in the recyclerview with the movietitle
+        binding.textView3.text = movie.title
 
         holder.bind(movie)
     }

@@ -1,3 +1,7 @@
+// Jaden Figger
+// Movie Searching
+// 5/12/2022
+
 package com.example.similarmoviefinder.ui.home
 
 import android.annotation.SuppressLint
@@ -26,10 +30,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var movieAdapter: MovieAdapter
 
-    fun navigateToWithinMovie(movie: Movie) {
-        this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(movie))
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-
+        // Setting no movies warning to visible/invisible based on movie status
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if (it == MovieApiStatus.None) {
                 binding.noMovies.visibility = View.VISIBLE
@@ -55,25 +55,33 @@ class HomeFragment : Fragment() {
             }
         })
 
+        // Observes the current movie from the movie adapter, and when the value changes, it updates the recyclerview
         viewModel.listResult.observe(viewLifecycleOwner, Observer {
             movieAdapter = MovieAdapter(it.results)
             binding.moviesList.adapter = movieAdapter
+            Log.i("status", it.results[0].title)
         })
 
+        // Called when the user searched on the search bar
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             @SuppressLint("NotifyDataSetChanged")
+            // when the user submits
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // If the query isn't null or empty
                 if (query != null && query != "") {
                     viewModel.getMarsPhotos(query)
-                    val emptyList: List<Movie> = emptyList()
-                    binding.moviesList.adapter = MovieAdapter(emptyList)
-                    Log.i("status", query)
                 }
+                // hides the keyboard
                 binding.searchView.clearFocus()
                 return true
             }
 
+            // when the text changes
             override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0 == "") {
+                    val emptyList: List<Movie> = emptyList()
+                    binding.moviesList.adapter = MovieAdapter(emptyList)
+                }
                 return true
             }
 

@@ -2,12 +2,14 @@ package com.example.similarmoviefinder.network
 
 import com.squareup.moshi.Json
 
-
+// The data classes for the movies
 data class MoviePage(
     @Json(name="page")
     val page: Int,
     @Json(name="results")
-    val results: List<Movie>
+    val results: List<Movie>,
+    @Json(name="total_pages")
+    val total_pages: Int
 ) {
     fun getSize(): Int {return results.size}
 }

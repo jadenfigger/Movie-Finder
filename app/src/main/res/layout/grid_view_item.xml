@@ -26,12 +26,11 @@
             type="com.example.similarmoviefinder.network.Movie" />
     </data>
 
-    <ImageView
-        android:id="@+id/poster_img"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        android:scaleType="fitCenter"
-        tools:src="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"/>
+
+
 </layout>
