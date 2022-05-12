@@ -53,4 +53,8 @@ class HomeViewModel : ViewModel() {
             }
         })
     }
+
+    fun navigateToWithinMovie(movie: Movie) {
+
+    }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,9 +27,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var movieAdapter: MovieAdapter
 
-    fun navigateToWithinMovie(movie: Movie) {
-        this.findNavController().navigate(OverviewFragmentDirections.actionShowDetail(movie))
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +43,9 @@ class HomeFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
+        movieAdapter = MovieAdapter(MovieAdapter.OnClickListener { movie ->
+            Toast.makeText(activity, movie.title, Toast.LENGTH_SHORT).show()
+        })
 
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
@@ -56,8 +57,8 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.listResult.observe(viewLifecycleOwner, Observer {
-            movieAdapter = MovieAdapter(it.results)
-            binding.moviesList.adapter = movieAdapter
+            val list = it.results
+            movieAdapter.
         })
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

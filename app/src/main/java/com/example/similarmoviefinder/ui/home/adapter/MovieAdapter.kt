@@ -46,7 +46,7 @@ private lateinit var binding: GridViewItemBinding
         Picasso.get().load(imageUri).into(binding.posterImg)
 
         holder.itemView.setOnClickListener {
-            navigateToWithinMovie
+
         }
 
         holder.bind(movie)
